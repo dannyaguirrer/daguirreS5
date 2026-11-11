@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+using daguirreS5.Repositories;
+using daguirreS5.Utilis;
+using Microsoft.Extensions.Logging;
 
 namespace daguirreS5
 {
@@ -16,8 +18,12 @@ namespace daguirreS5
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+            // Base de datos SQLite local
+            string dbPath = FileAccessHelper.getFilepath("personas.db3");
+            builder.Services.AddSingleton<PersonRepository>(s =>
+                ActivatorUtilities.CreateInstance<PersonRepository>(s, dbPath));
 
             return builder.Build();
         }

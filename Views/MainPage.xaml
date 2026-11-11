@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="daguirreS5.Views.MainPage"
+             Title="Semana 5: CRUD SQLite">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" Padding="20" RowSpacing="10">
+
+        <!-- Formulario -->
+        <Label Grid.Row="0" Text="Personas (SQLite)" FontSize="20" FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="8">
+            <Label x:Name="lblId" Text="Id: (nuevo)"/>
+            <Entry x:Name="txtNombre" Placeholder="Nombre" MaxLength="25"/>
+            <Entry x:Name="txtEdad" Placeholder="Edad" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+
+        <!-- Botones CRUD -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,*,*,*" ColumnSpacing="5">
+            <Button Grid.Column="0" Text="Agregar" Clicked="btnAgregar_Clicked"/>
+            <Button Grid.Column="1" Text="Actualizar" Clicked="btnActualizar_Clicked"/>
+            <Button Grid.Column="2" Text="Eliminar" BackgroundColor="Red" Clicked="btnEliminar_Clicked"/>
+            <Button Grid.Column="3" Text="Limpiar" BackgroundColor="Gray" Clicked="btnLimpiar_Clicked"/>
+        </Grid>
+
+        <Label Grid.Row="3" x:Name="lblStatus" TextColor="Green"/>
+
+        <!-- Encabezado de la tabla -->
+        <Grid Grid.Row="4" ColumnDefinitions="*,2*,*" BackgroundColor="Blue">
+            <Label Grid.Column="0" Text="Id" FontAttributes="Bold" Padding="5"/>
+            <Label Grid.Column="1" Text="Nombre" FontAttributes="Bold" Padding="5"/>
+            <Label Grid.Column="2" Text="Edad" FontAttributes="Bold" Padding="5"/>
+        </Grid>
+
+        <!-- Lista (seleccionar una fila carga sus datos en el formulario) -->
+        <CollectionView Grid.Row="5" x:Name="cvPersonas"
+                        SelectionMode="Single"
+                        SelectionChanged="cvPersonas_SelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,2*,*">
+                        <Label Grid.Column="0" Text="{Binding Id}" Padding="5"/>
+                        <Label Grid.Column="1" Text="{Binding Nombre}" Padding="5"/>
+                        <Label Grid.Column="2" Text="{Binding Edad}" Padding="5"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
